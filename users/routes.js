@@ -41,13 +41,22 @@ function UserRoutes(app) {
     res.json(currentUser);
   };
 
+
+
   const signin = async (req, res) => {
     const { username, password } = req.body;
     const currentUser = await dao.findUserByCredentials(username, password);
     console.log(currentUser);
-    req.session['currentUser'] = currentUser;
-    res.json(currentUser);
-   };
+    if (currentUser) {
+      req.session['currentUser'] = currentUser;
+      res.json(currentUser);
+    } else {
+      res.status(401).json({ message: "Incorrect username or password" });
+    }
+  };
+  
+
+
   
    const signout = (req, res) => {
     req.session.destroy();
