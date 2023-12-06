@@ -1,6 +1,7 @@
 import express from 'express'
 import session from "express-session";
 import UserRoutes from "./users/routes.js";
+import FollowsRoutes from "./follows/routes.js"
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
@@ -31,4 +32,5 @@ const sessionOptions = {
   
 app.use(express.json());
 UserRoutes(app);
+FollowsRoutes(app);
 app.listen(process.env.PORT || 4000);

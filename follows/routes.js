@@ -14,6 +14,7 @@ function FollowsRoutes(app) {
     res.json(status);
   };
   const findFollowersOfUser = async (req, res) => {
+    console.log("message");
     const followed = req.params["followed"];
     const followers = await dao.findFollowersOfUser(followed);
     res.json(followers);
