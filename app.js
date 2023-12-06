@@ -4,8 +4,7 @@ import UserRoutes from "./users/routes.js";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
-const CONNECTION_STRING =  'mongodb://127.0.0.1:27017/5610project';
-mongoose.connect(CONNECTION_STRING);
+mongoose.connect("mongodb://127.0.0.1:27017/5610project");
 const app = express()
 app.use(
     cors({
