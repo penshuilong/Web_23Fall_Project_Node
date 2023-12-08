@@ -1,8 +1,8 @@
 import model from "./model.js";
 
 export const findAllLikes = () => model.find();
-export const createUserLikesMeal = (userId, idMeal,strMeal) =>
-  model.create({ user: userId, idMeal: idMeal, strMeal: strMeal });
+export const createUserLikesMeal = (userId, idMeal, strMeal, strMealThumb) =>
+  model.create({ user: userId, idMeal: idMeal, strMeal: strMeal, strMealThumb: strMealThumb });
 export const deleteUserLikesMeal = (userId, idMeal) =>
   model.deleteOne({ user: userId, idMeal: idMeal });
 export const findUsersThatLikeMeal = (idMeal) =>

@@ -2,13 +2,15 @@ import * as dao from "./dao.js";
 
 function LikesRoutes(app) {
   const findAllLikes = async (req, res) => {};
+ 
   const createUserLikesMeal = async (req, res) => {
-    const userId = req.params.userId;
-    const idMeal = req.params.idMeal;
-    const strMeal = req.params.strMeal;
-    const likes = await dao.createUserLikesMeal(userId, idMeal,strMeal);
-    res.json(likes);
-  };
+  const userId = req.params.userId;
+  const idMeal = req.params.idMeal;
+  const { strMeal, strMealThumb } = req.body; 
+  const likes = await dao.createUserLikesMeal(userId, idMeal, strMeal, strMealThumb);
+  res.json(likes);
+};
+
   const deleteUserLikesMeal = async (req, res) => {};
   const findUsersThatLikeMeal = async (req, res) => {
     const idMeal = req.params.idMeal;
