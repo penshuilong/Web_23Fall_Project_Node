@@ -5,7 +5,8 @@ function LikesRoutes(app) {
   const createUserLikesMeal = async (req, res) => {
     const userId = req.params.userId;
     const idMeal = req.params.idMeal;
-    const likes = await dao.createUserLikesMeal(userId, idMeal);
+    const strMeal = req.params.strMeal;
+    const likes = await dao.createUserLikesMeal(userId, idMeal,strMeal);
     res.json(likes);
   };
   const deleteUserLikesMeal = async (req, res) => {};
