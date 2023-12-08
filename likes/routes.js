@@ -2,29 +2,29 @@ import * as dao from "./dao.js";
 
 function LikesRoutes(app) {
   const findAllLikes = async (req, res) => {};
-  const createUserLikesfood = async (req, res) => {
+  const createUserLikesMeal = async (req, res) => {
     const userId = req.params.userId;
-    const foodId = req.params.foodId;
-    const likes = await dao.createUserLikesfood(userId, foodId);
+    const idMeal = req.params.idMeal;
+    const likes = await dao.createUserLikesMeal(userId, idMeal);
     res.json(likes);
   };
-  const deleteUserLikesfood = async (req, res) => {};
-  const findUsersThatLikefood = async (req, res) => {
-    const foodId = req.params.foodId;
+  const deleteUserLikesMeal = async (req, res) => {};
+  const findUsersThatLikeMeal = async (req, res) => {
+    const idMeal = req.params.idMeal;
 
-    const likes = await dao.findUsersThatLikefood(foodId);
+    const likes = await dao.findUsersThatLikeMeal(idMeal);
     res.json(likes);
   };
-  const findfoodsThatUserLikes = async (req, res) => {
+  const findMealsThatUserLikes = async (req, res) => {
     const userId = req.params.userId;
-    const likes = await dao.findfoodsThatUserLikes(userId);
+    const likes = await dao.findMealsThatUserLikes(userId);
     res.json(likes);
   };
   app.get("/api/likes", findAllLikes);
-  app.post("/api/users/:userId/likes/:foodId", createUserLikesfood);
-  app.delete("/api/users/:userId/likes/:foodId", deleteUserLikesfood);
-  app.get("/api/likes/:foodId/users", findUsersThatLikefood);
-  app.get("/api/users/:userId/likes", findfoodsThatUserLikes);
+  app.post("/api/users/:userId/likes/:idMeal", createUserLikesMeal);
+  app.delete("/api/users/:userId/likes/:idMeal", deleteUserLikesMeal);
+  app.get("/api/likes/:idMeal/users", findUsersThatLikeMeal);
+  app.get("/api/users/:userId/likes", findMealsThatUserLikes);
 }
 
 export default LikesRoutes;
