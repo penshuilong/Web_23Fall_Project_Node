@@ -10,7 +10,7 @@ const app = express()
 app.use(
     cors({
       credentials: true,
-      origin: process.env.FRONTEND_URL
+      origin: 'https://silly-tarsier-6acc48.netlify.app',
     })
    );
 
