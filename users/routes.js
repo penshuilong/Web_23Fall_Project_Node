@@ -41,13 +41,22 @@ function UserRoutes(app) {
     res.json(currentUser);
   };
 
+
+
   const signin = async (req, res) => {
     const { username, password } = req.body;
     const currentUser = await dao.findUserByCredentials(username, password);
     console.log(currentUser);
-    req.session['currentUser'] = currentUser;
-    res.json(currentUser);
-   };
+    if (currentUser) {
+      req.session['currentUser'] = currentUser;
+      res.json(currentUser);
+    } else {
+      res.status(401).json({ message: "Incorrect username or password" });
+    }
+  };
+  
+
+
   
    const signout = (req, res) => {
     req.session.destroy();
@@ -57,6 +66,12 @@ function UserRoutes(app) {
 
   const account = async (req, res) => {
     res.json(req.session['currentUser']);
+  };
+
+  const findByUsername = async (req, res) => {
+    const username = req.params.username;
+    const user = await dao.findUserByUsername(username);
+    res.json(user);
   };
 
 
@@ -73,6 +88,7 @@ function UserRoutes(app) {
   app.post("/api/users/signin", signin);
   app.post("/api/users/signout", signout);
   app.post("/api/users/account", account);
+  app.get("/api/users/username/:username", findByUsername);
 
 }
 export default UserRoutes;
