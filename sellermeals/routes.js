@@ -1,6 +1,6 @@
 import express from "express";
 import * as sellerMealDAO from "./dao.js";
-import UserModel from "../users/model.js";
+import { BaseUserModel, UserModel ,SellerModel, AdminModel } from "../users/model.js";
 // 导入User模型
 
 const router = express.Router();

@@ -3,7 +3,7 @@ import session from "express-session";
 import UserRoutes from "./users/routes.js";
 import FollowsRoutes from "./follows/routes.js";
 import LikesRoutes from "./likes/routes.js";
-import sellerMealRoutes from './sellermeals/routes.js';
+import router from './sellermeals/routes.js';
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
@@ -37,5 +37,7 @@ app.use(express.json());
 UserRoutes(app);
 FollowsRoutes(app);
 LikesRoutes(app);
-app.use('/api/sellermeals', sellerMealRoutes);
+// app.use('/api/sellermeals', router);
+// sellerMealRoutes(app);
+router
 app.listen(process.env.PORT || 4000);
