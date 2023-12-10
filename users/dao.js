@@ -1,14 +1,33 @@
-import model from "./model.js";
-export const createUser = (user) => model.create(user);
-export const findAllUsers = () => model.find();
-export const findUserById = (userId) => model.findById(userId);
+import { BaseUserModel, UserModel,SellerModel, AdminModel } from "./model.js";
+
+export const createUser = async (user) => {
+  try {
+    console.log("Creating user:", user);
+    if (user.role === 'USER') {
+      return await UserModel.create(user);
+    } else if (user.role === 'SELLER') {
+      return await SellerModel.create(user);
+    } else if (user.role === 'ADMIN') {
+      return await AdminModel.create(user);
+    }
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error; 
+  }
+};
+
+
+
+// export const createUser = (user) => model.create(user);
+export const findAllUsers = () => BaseUserModel.find();
+export const findUserById = (userId) => BaseUserModel.findById(userId);
 export const findUserByUsername = (username) =>
-  model.findOne({ username: username });
+BaseUserModel.findOne({ username: username });
 
 export const findUserByCredentials = (usr, pass) => 
-  model.findOne({ username: usr, password: pass });
+BaseUserModel.findOne({ username: usr, password: pass });
 export const updateUser = (userId, user) =>
-  model.updateOne({ _id: userId }, { $set: user });
-export const deleteUser = (userId) => model.deleteOne({ _id: userId });
+BaseUserModel.updateOne({ _id: userId }, { $set: user });
+export const deleteUser = (userId) => BaseUserModel.deleteOne({ _id: userId });
 
 
