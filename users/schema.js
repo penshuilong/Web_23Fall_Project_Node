@@ -24,7 +24,7 @@ const SellerSchema = new mongoose.Schema({
 });
 
 const AdminSchema = new mongoose.Schema({
-  adminDurantion: String
+  adminDuration: String
 });
 
 
