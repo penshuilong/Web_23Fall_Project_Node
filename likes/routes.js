@@ -11,7 +11,14 @@ function LikesRoutes(app) {
   res.json(likes);
 };
 
-  const deleteUserLikesMeal = async (req, res) => {};
+  // const deleteUserLikesMeal = async (req, res) => {};
+  const deleteUserLikesMeal = async (req, res) => {
+    const userId = req.params.userId;
+    const idMeal = req.params.idMeal;
+    await dao.deleteUserLikesMeal(userId, idMeal);
+    res.sendStatus(204); // 204 No Content
+  };
+  
   const findUsersThatLikeMeal = async (req, res) => {
     const idMeal = req.params.idMeal;
 
