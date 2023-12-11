@@ -31,19 +31,27 @@ function UserRoutes(app) {
     req.session['currentUser'] = currentUser;
     res.json(status);
   };
+
   const signup = async (req, res) => {
-    const user = await dao.findUserByUsername(
-      req.body.username);
-    if (user) {
-      res.status(400).json(
-        { message: "Username already taken" });
+    try {
+      const existingUser = await dao.findUserByUsername(req.body.username);
+      if (existingUser) {
+        return res.status(400).json({ message: "Username already taken" });
+      }
+
+      const currentUser = await dao.createUser(req.body);
+      console.log("req.body");
+      console.log(req.body);
+      req.session['currentUser'] = currentUser;
+      console.log("currentUser");
+      console.log(currentUser);
+      res.json(currentUser);
+    } catch (error) {
+      console.error("Signup error:", error);
+      res.status(500).json({ message: "Internal server error" });
     }
-    const currentUser = await dao.createUser(req.body);
-    req.session['currentUser'] = currentUser;
-    res.json(currentUser);
   };
-
-
+  
 
   const signin = async (req, res) => {
     const { username, password } = req.body;
