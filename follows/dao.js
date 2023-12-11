@@ -8,3 +8,6 @@ export const findFollowersOfUser = (followed) =>
   model.find({ followed }).populate("follower");
 export const findFollowedUsersByUser = (follower) =>
   model.find({ follower }).populate("followed");
+export const deleteUserFollows = async (userId) => {
+  return model.deleteMany({ $or: [{ follower: userId }, { followed: userId }] });
+  };

@@ -1,4 +1,9 @@
 import * as dao from "./dao.js";
+import * as likesDao from "../likes/dao.js";
+import * as followsDao from "../follows/dao.js";
+import * as commentsDao from "../comments/dao.js";
+
+
 function UserRoutes(app) {
 
   const createUser = async (req, res) => {
@@ -9,9 +14,31 @@ function UserRoutes(app) {
   app.post("/api/users", createUser);
 
   
-  const deleteUser = async (req, res) => {
-    const status = await dao.deleteUser(req.params.userId);
-    res.json(status);
+//   const deleteUser = async (req, res) => {
+//     const status = await dao.deleteUser(req.params.userId);
+//     res.json(status);
+// };
+const deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // 删除用户的喜欢的菜品记录
+    await likesDao.deleteUserLikes(userId);
+
+    // 删除用户的跟随记录
+    await followsDao.deleteUserFollows(userId);
+
+    // 删除用户的评论
+    await commentsDao.deleteUserComments(userId);
+
+    // 最后删除用户本身
+    await dao.deleteUser(userId);
+
+    res.json({ message: "User and related data deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user and related data:", error);
+    res.status(500).json({ message: "Error deleting user and related data" });
+  }
 };
 
   const findAllUsers = async (req, res) => {
