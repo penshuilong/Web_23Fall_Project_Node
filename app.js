@@ -16,8 +16,8 @@ const app = express()
 app.use(
     cors({
       credentials: true,
-      // origin: 'https://silly-tarsier-6acc48.netlify.app',
-      origin:"http://localhost:3000",
+      origin: 'https://silly-tarsier-6acc48.netlify.app',
+      // origin:"http://localhost:3000",
     })
    );
 
