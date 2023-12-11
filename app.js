@@ -7,6 +7,8 @@ import router from './sellermeals/routes.js';
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
+import CommentsRoutes from "./comments/routes.js";
+
 // mongoose.connect("mongodb://127.0.0.1:27017/5610project");
 mongoose.connect("mongodb+srv://zihanzhao1999:36c33s0326ZH@cluster0.wi4vzv2.mongodb.net/5610project?retryWrites=true&w=majority");
 const app = express()
@@ -37,6 +39,7 @@ app.use(express.json());
 UserRoutes(app);
 FollowsRoutes(app);
 LikesRoutes(app);
+CommentsRoutes(app);
 // app.use('/api/sellermeals', router);
 // sellerMealRoutes(app);
 router
