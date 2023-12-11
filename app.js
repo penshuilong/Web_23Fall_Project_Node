@@ -3,8 +3,9 @@ import session from "express-session";
 import UserRoutes from "./users/routes.js";
 import FollowsRoutes from "./follows/routes.js";
 import LikesRoutes from "./likes/routes.js";
-import router from './sellermeals/routes.js';
+// import router from './sellermeals/routes.js';
 import cors from "cors";
+import sellerMealRoutes from './sellermeals/routes.js';
 import "dotenv/config";
 import mongoose from "mongoose";
 import CommentsRoutes from "./comments/routes.js";
@@ -41,6 +42,7 @@ FollowsRoutes(app);
 LikesRoutes(app);
 CommentsRoutes(app);
 // app.use('/api/sellermeals', router);
+app.use('/api/sellermeals', sellerMealRoutes);
 // sellerMealRoutes(app);
-router
+// router
 app.listen(process.env.PORT || 4000);

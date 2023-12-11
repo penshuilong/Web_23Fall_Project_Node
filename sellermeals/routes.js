@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     const { username, sellerMeal } = req.body;
     // 验证用户名是否属于SELLER
-    const user = await UserModel.findOne({ username, role: 'SELLER' });
+    const user = await SellerModel.findOne({ username, role: 'SELLER' });
     if (!user) {
         return res.status(400).send('Invalid seller username');
     }
@@ -41,7 +41,7 @@ router.delete('/:username/:mealIdentifier', async (req, res) => {
 
     try {
         // 验证用户名是否属于SELLER
-        const user = await UserModel.findOne({ username, role: 'SELLER' });
+        const user = await SellerModel.findOne({ username, role: 'SELLER' });
         if (!user) {
             return res.status(400).send('Invalid seller username');
         }
