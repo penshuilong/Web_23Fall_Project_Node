@@ -1,17 +1,31 @@
 import mongoose from "mongoose";
-const userSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    firstName: String,
-    email: String,
-    lastName: String,
-    dob: String,
-    restaurantName: String,
-    restaurantAddress: String,
-    role: {
-      type: String,
-      enum: ["MANAGER", "SELLER", "USER"],
-      default: "USER" },
+
+const BaseUserSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  firstName: String,
+  lastName: String,
+  email: String,
+  dob: String,
+  role: {
+    type: String,
+    enum: ["USER", "SELLER", "ADMIN"],
+    default: "USER"
   },
-  { collection: "users" });
-export default userSchema;
+}, { discriminatorKey: 'role', collection: 'users' });
+
+const UserSchema = new mongoose.Schema({
+  deliveryAddress: String
+});
+
+const SellerSchema = new mongoose.Schema({
+  restaurantName: String,
+  restaurantAddress: String
+});
+
+const AdminSchema = new mongoose.Schema({
+  adminDuration: String
+});
+
+
+export { BaseUserSchema, UserSchema,SellerSchema, AdminSchema };
