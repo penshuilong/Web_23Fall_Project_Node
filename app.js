@@ -3,12 +3,12 @@ import session from "express-session";
 import UserRoutes from "./users/routes.js";
 import FollowsRoutes from "./follows/routes.js";
 import LikesRoutes from "./likes/routes.js";
-import router from './sellermeals/routes.js';
+// import router from './sellermeals/routes.js';
 import cors from "cors";
+import sellerMealRoutes from './sellermeals/routes.js';
 import "dotenv/config";
 import mongoose from "mongoose";
 import CommentsRoutes from "./comments/routes.js";
-import sellerMealRoutes from './sellermeals/routes.js';
 
 // mongoose.connect("mongodb://127.0.0.1:27017/5610project");
 mongoose.connect("mongodb+srv://zihanzhao1999:36c33s0326ZH@cluster0.wi4vzv2.mongodb.net/5610project?retryWrites=true&w=majority");
