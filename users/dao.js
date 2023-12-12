@@ -1,4 +1,4 @@
-import { BaseUserModel, UserModel,SellerModel, AdminModel } from "./model.js";
+import { BaseUserModel, UserModel, SellerModel, AdminModel } from "./model.js";
 
 export const createUser = async (user) => {
   try {
@@ -12,7 +12,7 @@ export const createUser = async (user) => {
     }
   } catch (error) {
     console.error("Error creating user:", error);
-    throw error; 
+    throw error;
   }
 };
 
@@ -22,10 +22,10 @@ export const createUser = async (user) => {
 export const findAllUsers = () => BaseUserModel.find();
 export const findUserById = (userId) => BaseUserModel.findById(userId);
 export const findUserByUsername = (username) =>
-BaseUserModel.findOne({ username: username });
+  BaseUserModel.findOne({ username: username });
 
-export const findUserByCredentials = (usr, pass) => 
-BaseUserModel.findOne({ username: usr, password: pass });
+export const findUserByCredentials = (usr, pass) =>
+  BaseUserModel.findOne({ username: usr, password: pass });
 
 // export const updateUser = (userId, user) =>
 // BaseUserModel.updateOne({ _id: userId }, { $set: user });

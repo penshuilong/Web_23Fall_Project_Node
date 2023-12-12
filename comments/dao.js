@@ -8,7 +8,6 @@ export const deleteUserCommentsMeal = (userId, idMeal) =>
 export const findUsersThatCommentsMeal = (idMeal) =>
   model.find({ idMeal: idMeal }).populate("user");
 export const findMealsThatUserComments = (userId) => model.find({ user: userId });
-
 export const deleteUserComments = async (userId) => {
   return model.deleteMany({ user: userId });
 };

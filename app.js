@@ -14,35 +14,34 @@ import CommentsRoutes from "./comments/routes.js";
 mongoose.connect("mongodb+srv://zihanzhao1999:36c33s0326ZH@cluster0.wi4vzv2.mongodb.net/5610project?retryWrites=true&w=majority");
 const app = express()
 app.use(
-    cors({
-      credentials: true,
-      // origin: 'https://silly-tarsier-6acc48.netlify.app',
-      origin:"http://localhost:3000",
-    })
-   );
+  cors({
+    credentials: true,
+    origin: 'https://silly-tarsier-6acc48.netlify.app',
+    //origin: "http://localhost:3000",
+  })
+);
 
 const sessionOptions = {
-    secret: "any string",
-    resave: false,
-    saveUninitialized: false,
+  secret: "any string",
+  resave: false,
+  saveUninitialized: false,
+};
+if (process.env.NODE_ENV !== "development") {
+  sessionOptions.proxy = true;
+  sessionOptions.cookie = {
+    sameSite: "none",
+    secure: true,
   };
-  if (process.env.NODE_ENV !== "development") {
-    sessionOptions.proxy = true;
-    sessionOptions.cookie = {
-      sameSite: "none",
-      secure: true,
-    };
-  }
-  app.use(session(sessionOptions));
-  
-  
+}
+app.use(session(sessionOptions));
+
+
 app.use(express.json());
 UserRoutes(app);
 FollowsRoutes(app);
 LikesRoutes(app);
 CommentsRoutes(app);
-// app.use('/api/sellermeals', router);
+
 app.use('/api/sellermeals', sellerMealRoutes);
-// sellerMealRoutes(app);
-// router
+
 app.listen(process.env.PORT || 4000);
