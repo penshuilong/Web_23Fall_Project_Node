@@ -1,6 +1,6 @@
 import express from "express";
 import * as sellerMealDAO from "./dao.js";
-import { BaseUserModel, UserModel ,SellerModel, AdminModel } from "../users/model.js";
+import { BaseUserModel, UserModel, SellerModel, AdminModel } from "../users/model.js";
 // 导入User模型
 
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     const { username, sellerMeal } = req.body;
     // 验证用户名是否属于SELLER
-    const user = await UserModel.findOne({ username, role: 'SELLER' });
+    const user = await BaseUserModel.findOne({ username, role: 'SELLER' });
     if (!user) {
         return res.status(400).send('Invalid seller username');
     }
@@ -41,7 +41,7 @@ router.delete('/:username/:mealIdentifier', async (req, res) => {
 
     try {
         // 验证用户名是否属于SELLER
-        const user = await UserModel.findOne({ username, role: 'SELLER' });
+        const user = await BaseUserModel.findOne({ username, role: 'SELLER' });
         if (!user) {
             return res.status(400).send('Invalid seller username');
         }
@@ -53,6 +53,26 @@ router.delete('/:username/:mealIdentifier', async (req, res) => {
     } catch (error) {
         console.error("Error deleting meal", error);
         res.status(500).send('Error deleting meal');
+    }
+});
+
+router.delete('/:username', async (req, res) => {
+    const username = req.params.username;
+
+    try {
+        // 验证用户名是否属于SELLER
+        const user = await BaseUserModel.findOne({ username, role: 'SELLER' });
+        if (!user) {
+            return res.status(400).send('Invalid seller username');
+        }
+
+        // 删除所有与该username相关联的数据
+        const result = await sellerMealDAO.deleteAllSellerMealsForUser(username);
+
+        res.status(200).json({ message: `All meals deleted for seller: ${username}`, result });
+    } catch (error) {
+        console.error("Error deleting seller meals for user", error);
+        res.status(500).send('Error deleting seller meals for user');
     }
 });
 

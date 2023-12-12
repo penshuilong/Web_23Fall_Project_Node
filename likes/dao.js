@@ -11,3 +11,6 @@ export const deleteUserLikesMeal = (userId, idMeal) =>
 export const findUsersThatLikeMeal = (idMeal) =>
   model.find({ idMeal: idMeal }).populate("user");
 export const findMealsThatUserLikes = (userId) => model.find({ user: userId });
+export const deleteUserLikes = async (userId) => {
+  return model.deleteMany({ user: userId });
+};
